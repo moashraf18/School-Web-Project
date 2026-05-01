@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Edit Task </title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    </head>
+    <body class="body4">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Admin dashboard</a>
+        <a href="{% url 'add_task' %}" >Insert New Task</a>
+        <a href="{% url 'delete_task' %}">Delete Task</a>
+        <a href="{% url 'view_tasks' %}" >View Available Tasks</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+        <div class="EditTask">
+            <h1>Edit Task</h1>
+            <form action="{% url 'edit_task' %}" method="post">
+                {% csrf_token %}
+                <input type="number" name="task_id" placeholder="Task ID" required class="edit_buttons">
+                <input type="text" name="task_title" placeholder="Task Title" required class="edit_buttons">
+                <input type="text" name="teacher_name" placeholder="Teacher Name" required class="edit_buttons">
+                <input type="text" name="description" placeholder="Description" class="edit_buttons">
+                <select name="priority" class="edit_buttons">
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+                <button type="submit" class="edit_buttons">Update</button>
+            </form>
+
+        </div>
+
+        <script src="{% static 'js/edit.js' %}"></script>
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let msg = "";
+            {% for message in messages %}
+                msg += "{{ message|escapejs }}\n";
+            {% endfor %}
+            
+            alert(msg);  
+            
+            
+            window.location.href = "{% url 'dashboard' %}";  
+        });
+    </script>
+    {% endif %}
+    </body>
+</html>

@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Available Tasks</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body class="tasks-page">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Admin dashboard</a>
+        <a href="{% url 'add_task' %}" >Insert New Task</a>
+        <a href="{% url 'edit_task'  %}">Edit Task</a>
+        <a href="{% url 'delete_task' %}">Delete Task</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+
+    <h1>Available Tasks:</h1>
+    <ul class="task-list">
+        {% if tasks %}
+            {% for task in tasks %}
+                <li>Task ID: {{ task.id }} - {{ task.name }} - Priority: {{ task.priority }}</li>
+            {% endfor %}
+        {% else %}
+            <li>No Available Tasks!</li>
+        {% endif %}
+    </ul>
+
+    <script src="{% static 'js/view_available_tasks.js' %}"></script>
+</body>
+</html>

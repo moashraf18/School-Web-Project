@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Delete Task </title>
+        <meta 
+            name="description" 
+            content="This my Book store" 
+        />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    </head>
+
+    <body class="body5">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Admin dashboard</a>
+        <a href="{% url 'add_task' %}" >Insert New Task</a>
+        <a href="{% url 'edit_task'  %}">Edit Task</a>
+        <a href="{% url 'delete_task' %}">Delete Task</a>
+        <a href="{% url 'view_tasks' %}" >View Available Tasks</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+    
+        <div class="DeleteTask">
+        <h1>Delete Task</h1>
+        <form method="POST" action="{% url 'delete_task' %}">
+            {% csrf_token %}
+            <input type="number" name="task_id" placeholder="Task ID" required class="edit_buttons">
+            <button type="submit" class="btn_btn">Delete</button>
+        </form>
+
+    </div>
+
+    <script src="{% static 'js/delete.js' %}"></script>
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let msg = "";
+            {% for message in messages %}
+                msg += "{{ message|escapejs }}\n";
+            {% endfor %}
+            
+            alert(msg);  
+            
+            
+            window.location.href = "{% url 'dashboard' %}";  
+        });
+    </script>
+    {% endif %}
+
+    </body>
+</html>

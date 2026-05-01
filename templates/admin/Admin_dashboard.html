@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin task management</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src=" {% static 'js/teacher_dashboard.js' %} " ></script>
+
+</head>
+<body class="body2 teacher-dashboard">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+      <a href="{% url 'index' %}">Home</a>
+      <a href="{% url 'logout' %}">Log out</a>
+    </div>
+    
+    <h1>Admin Dashboard</h1>
+    <div class="box">
+    <a href="{% url 'add_task' %}" >Insert New Task</a>
+    <a href="{% url 'edit_task'  %}">Edit Task</a>
+    <a href="{% url 'delete_task' %}">Delete Task</a>
+    <a href="{% url 'view_tasks' %}" >View Available Tasks</a>
+    </div>
+
+</body>
+</html>

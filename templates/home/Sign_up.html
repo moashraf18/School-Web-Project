@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sign up</title>
+        <link rel="stylesheet" href="{% static 'css\style.css' %}">
+    </head>
+
+    <body class="signup-body">
+        <div class="navbar">
+        <ul>
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'signup' %}">Sign up</a></li>
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            <li><a href="{% url 'forgot_password' %}">Forgot password</a></li>
+            <li><a href="{% url 'logout' %}">Log out</a></li>
+        </ul>
+        </div>
+        <div class="signup-page">
+            <h1 style="text-align: center;">Sign up</h1>
+            <form method="POST" id="signup-form">
+                {% csrf_token %}
+                <label for="signup-username">Enter username:</label>
+                <input type="text" id="signup-username" name="signup-username" required><br>
+
+                <label for="signup-password">Enter password:</label>
+                <input type="password" id="signup-password" name="signup-password" required><br>
+
+                <label for="signup-confirm-password">Confirm Password:</label>
+                <input type="password" id="signup-confirm-password" name="signup-confirm-password" required><br>
+
+                <p>You should decide whether you are:</p>
+                <input type="radio" id="admin" name="role" value="admin" required>
+                <label for="admin">Admin</label>
+                <input type="radio" id="teacher" name="role" value="teacher" required>
+                <label for="teacher">Teacher</label><br>
+
+                <button type="submit">Submit</button>
+            </form>
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'js/Sign up.js' %}"></script>
+</body>
+</html>

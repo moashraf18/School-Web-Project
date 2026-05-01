@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Task as Completed</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{% static 'js/mark_task_completed.js' %}"></script>
+</head>
+<body class="tasks-page">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'teacher_dashboard' %}">Teacher dashboard</a>
+        <a href="{% url 'view_available_tasks' %}">View Available Tasks</a>
+        <a href="{% url 'view_details' %}">View Tasks Details</a>
+        <a href="{% url 'view_completed_tasks' %}">View Completed Tasks</a>
+        <a href="{% url 'search_tasks' %}">Search Tasks by Priority</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+    {% if user.is_authenticated %}
+        <h1>Mark Task as Completed</h1>
+        <div id="task-list">
+            {% for task in tasks %}
+                <div class="task-item" data-task-name="{{ task.name }}">
+                    <span>{{ task.name }}</span>
+                    <button class="mark-btn">Mark Task Completed!</button>
+                </div>
+            {% empty %}
+                <p>No Tasks Available</p>
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1>You should Login or Sign-Up First!!</h1>
+        <button class="mark-btn">
+            <a href="{% url 'login' %}">Login</a>
+        </button>
+        <button class="mark-btn">
+            <a href="{% url 'signup' %}"> Sign-Up</a>
+        </button>
+    {% endif %}   
+</body>
+</html>

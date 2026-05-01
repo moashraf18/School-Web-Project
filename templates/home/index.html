@@ -1,0 +1,87 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Task</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+    <div class="Home-page">
+        <div class="welcome">
+            <h1>
+                {% if user.is_authenticated %}
+                    Welcome to our website, {{ user.username }}!
+                {% else %}
+                    Welcome to Our School Task Website
+                {% endif %}
+            </h1>
+            <p id="p1">We will help you to manage and track school assignments efficiently</p>
+        </div>
+
+        <div class="navbar1">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'teacher_dashboard' %}">Teacher</a></li>
+                    <li><a href="{% url 'dashboard' %}">Admin</a></li>
+                    <li><a href="{% url 'forgot_password' %}">Forgot password</a></li>
+                    <li><a href="{% url 'logout' %}">Logout</a></li>
+                {% else %}
+                    <li><a href="{% url 'signup' %}">Sign up</a></li>
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                    <li><a href="{% url 'forgot_password' %}">Forgot password</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        
+        <div>
+            <p id="p2"><b>
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </b>
+            </p>
+        </div>
+
+        <div>
+            <p id="p2"><b>A simple school task website providing interaction between Admins and Teachers.</b></p>
+        </div>
+
+        <div class="Admin-features">
+            <div class="Admin-features-content">
+                <h2>Admin Features</h2>
+                <ul>
+                    <li><p>Admins can add, edit and delete tasks</p></li>
+                    <li><p>Admins can view list of created tasks</p></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="teachers-features">
+            <div class="teachers-features-content">
+                <h2>Teacher Features</h2>
+                <ul>
+                    <li><p>Search for tasks by priority</p></li>
+                    <li><p>View list of available tasks assigned to the logged-in teacher</p></li>
+                    <li><p>View task details in a dedicated task page</p></li>
+                    <li><p>Mark a task as completed and view completed tasks</p></li>
+                </ul>
+            </div>
+        </div>
+
+        {% if not user.is_authenticated %}
+        <div class="start">
+            <h3>Get Started</h3>
+            <ul>
+                <li><a href="{% url 'signup' %}">Sign up</a></li>
+                <li><a href="{% url 'login' %}">Log in</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>

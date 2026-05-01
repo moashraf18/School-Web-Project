@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Task Details</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/view_details.js"></script>
+</head>
+<body class="task-page">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'teacher_dashboard' %}">Teacher dashboard</a>
+        <a href="{% url 'view_available_tasks' %}">View Available Tasks</a>
+        <a href="{% url 'view_completed_tasks' %}">View Completed Tasks</a>
+        <a href="{% url 'search_tasks' %}">Search Tasks by Priority</a>
+        <a href="{% url 'mark_task_completed' %}">Mark Task as Completed</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+    {% if user.is_authenticated %}
+        <h1>Task Details</h1>
+        {% for task in tasks %}
+        <div class="task">
+            <h2>Task ID:</h2>
+            <p class="task-ID">{{ task.id }}</p>
+            <h2>Title:</h2>
+            <p class="task-title">{{ task.name }}</p>
+            <h2>Teacher Name:</h2>
+            <p class="task-Teacher-Name">{{ task.teacher_name }}</p>
+            <h2>Description:</h2>
+            <p class="task-description">{{ task.description }}</p>
+            <h2>Priority:</h2>
+            <p class="task-priority">{{ task.priority }}</p>
+        </div>
+        {% empty %}
+        <p>No Available Tasks!</p>
+        {% endfor %}
+    {% else %}
+        <h1>You should Login or Sign-Up First!!</h1>
+        <button class="mark-btn">
+            <a href="{% url 'login' %}">Login</a>
+        </button>
+        <button class="mark-btn">
+            <a href="{% url 'signup' %}"> Sign-Up</a>
+        </button>
+    {% endif %}  
+</body>
+</html>

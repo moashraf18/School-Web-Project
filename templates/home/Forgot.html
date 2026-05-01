@@ -1,0 +1,48 @@
+{%load static%}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" >
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Forgot password</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    </head>
+
+    <body class="signup-body">
+        <div class="navbar">
+            <ul>
+                <li><a href="{% url 'index' %}">Home</a></li>
+                <li><a href="{% url 'signup' %}" target="_self">Sign up</a></li>
+                <li><a href="{% url 'login' %}" target="_self">Log in</a></li>
+                <li><a href="{% url 'logout' %}" target="_self">Log out</a></li>
+            </ul>
+        </div>
+        <div class="signup-page">
+            <h1>Set up your password</h1>
+
+        <form method="POST">
+            {% csrf_token %}
+            <label for="login-username">Enter username:</label>
+            <input type="text" id="login-username" name="login-username" required><br>
+
+            <label for="password_tow">Reset password:</label>
+            <input type="password" id="password_tow" name="password_tow" required><br>
+
+            <label for="confirm_password_tow">Confirm Password:</label>
+            <input type="password" id="confirm_password_tow" name="confirm_password_tow" required><br>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+
+    <script src="{% static 'js/Forgotpassword.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insert Task</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body class="body3">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'dashboard' %}">Admin dashboard</a>
+        <a href="{% url 'edit_task'  %}">Edit Task</a>
+        <a href="{% url 'delete_task' %}">Delete Task</a>
+        <a href="{% url 'view_tasks' %}" >View Available Tasks</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+
+    <div class="insert_pox">
+      <h1>Insert new task</h1>
+      <form action="{% url 'add_task' %}" method="post">
+        {% csrf_token %}
+        <div>
+          <input
+            id="task_id"
+            type="text"
+            placeholder="Task ID"
+            name="task_id"
+            required
+          />
+        </div>
+        <br />
+        <div class="title">
+          <input
+            id="title"
+            type="text"
+            placeholder="Task title"
+            name="title"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          <input
+            id="teacher_name"
+            type="text"
+            placeholder="Teacher name"
+            name="teacher_name"
+            required
+          />
+        </div>
+        <br />
+        <div>
+          <input
+            id="description"
+            type="text"
+            placeholder="description"
+            name="description"
+          />
+        </div>
+        <div>
+          <select name="priority" id="priority" required>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        </div>
+        <br />
+        <input type="submit" value="Insert" class="btm" />
+      </form>
+    </div>
+
+    <script src="{% static 'js/insert.js' %}"></script>
+    {% if messages %}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let msg = "";
+            {% for message in messages %}
+                msg += "{{ message|escapejs }}\n";
+            {% endfor %}
+            
+            alert(msg);  
+            
+            
+            window.location.href = "{% url 'dashboard' %}";  
+        });
+    </script>
+    {% endif %}
+
+
+  </body>
+</html>

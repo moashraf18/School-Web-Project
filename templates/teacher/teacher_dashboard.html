@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/insert.js"></script>
+</head>
+<body class="body2 teacher-dashboard">
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <div id="sidebar" class="sidebar">
+        <a href="{% url 'index' %}">Home</a>
+        <a href="{% url 'logout' %}">Log out</a>
+    </div>
+    {% if user.is_authenticated %}
+    <h1>Teacher Dashboard</h1>
+    <div class="box">
+        <a href="{% url 'view_available_tasks' %}">View Available Tasks</a>
+        <a href="{% url 'view_details' %}">View Tasks Details</a>
+        <a href="{% url 'view_completed_tasks' %}">View Completed Tasks</a>
+        <a href="{% url 'search_tasks' %}">Search Tasks by Priority</a>
+        <a href="{% url 'mark_task_completed' %}">Mark Task as Completed</a>
+    {% else %}
+        <h1>You should Login or Sign-Up First!!</h1>
+        <div class="box">
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'signup' %}"> Sign-Up</a>
+        </div>
+    {% endif %}
+    </div>
+</body>
+</html>
